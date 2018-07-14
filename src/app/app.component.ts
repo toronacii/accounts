@@ -1,5 +1,5 @@
 import { AuthService } from './auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.authService.initAuthListener();

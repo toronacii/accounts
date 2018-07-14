@@ -15,6 +15,8 @@ export const reducer = (state = initialState, action: authActions.actions): Auth
             return {
                 user: { ...action.user }
             };
+        case authActions.UNSET_USER:
+            return { ...initialState };
         default:
             return state;
     }

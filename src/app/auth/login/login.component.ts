@@ -11,15 +11,12 @@ import { AppState } from '../../app.reducer';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-  isLoading = false;
-
   constructor(
     private authService: AuthService,
-    private store: Store<AppState>) { super(); }
+    store: Store<AppState>) { super(store); }
 
   ngOnInit() {
-    this.newSubcription = this.store.select('ui')
-      .subscribe(ui => this.isLoading = ui.isLoading);
+    this.subscribeLoading();
   }
 
   login(user) {

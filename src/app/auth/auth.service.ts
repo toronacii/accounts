@@ -1,4 +1,4 @@
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 import { EnableLoadingAction, DisableLoadingAction } from './../shared/ui.actions';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -11,6 +11,7 @@ import { User } from './user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { Subscription } from 'rxjs';
+import { UnsetAccountAction } from '../accounts/accounts.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,11 @@ import { Subscription } from 'rxjs';
 export class AuthService {
 
   private userSubscription = new Subscription();
+  private _user: User;
+
+  get user(): User {
+    return User.create(this._user);
+  }
 
   constructor(
     private router: Router,
@@ -33,12 +39,12 @@ export class AuthService {
             .doc(`${ afUser.uid }/user`)
             .valueChanges()
             .subscribe(userDoc => {
-              const user = User.create(userDoc as User);
-              const action = new SetUserAction(user);
+              this._user = User.create(userDoc as User);
+              const action = new SetUserAction(this._user);
               this.store.dispatch(action);
             });
         } else {
-          this.userSubscription.unsubscribe();
+          this._user = null;
         }
       });
   }
@@ -87,6 +93,8 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+    this.store.dispatch(new UnsetUserAction());
+    this.store.dispatch(new UnsetAccountAction());
   }
 
   isAuth() {

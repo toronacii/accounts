@@ -11,15 +11,12 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
 
-  isLoading = false;
-
   constructor(
-    private store: Store<AppState>,
-    private authService: AuthService) { super(); }
+    store: Store<AppState>,
+    private authService: AuthService) { super(store); }
 
   ngOnInit() {
-    this.newSubcription = this.store.select('ui')
-      .subscribe(ui => this.isLoading = ui.isLoading);
+    this.subscribeLoading();
   }
 
   onSubmit(user) {
