@@ -28,7 +28,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary submit-btn btn-block" [disabled]="form.invalid">Login</button>
+                            <button class="btn btn-primary submit-btn btn-block" [disabled]="form.invalid || isLoading">
+                                <span *ngIf="!isLoading" >Login</span>
+                                <i *ngIf="isLoading" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                            </button>
                         </div>
 
                         <div class="text-block text-center my-3">
