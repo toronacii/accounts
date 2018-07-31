@@ -14,7 +14,7 @@ const initialState: AccountState = {
     items: []
 };
 
-export const reducer = (state = initialState, action: accountActions.actions): AccountState => {
+export function reducer(state = initialState, action: accountActions.actions): AccountState {
     switch (action.type) {
         case accountActions.SET_ITEMS:
             return {

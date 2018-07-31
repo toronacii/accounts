@@ -9,7 +9,7 @@ const initialState: AuthState = {
     user: null
 };
 
-export const reducer = (state = initialState, action: authActions.actions): AuthState => {
+export function reducer(state = initialState, action: authActions.actions): AuthState {
     switch (action.type) {
         case authActions.SET_USER:
             return {
