@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import * as fromAccount from '../accounts.reducer';
 import { BaseComponent } from '../../shared/base-component';
 
 @Component({
@@ -18,7 +18,7 @@ export class StatsComponent extends BaseComponent implements OnInit {
   public doughnutChartLabels: string[] = ['Ingresos', 'Egresos'];
   public doughnutChartData: number[] = [];
 
-  constructor(store: Store<AppState>) { super(store); }
+  constructor(store: Store<fromAccount.AppState>) { super(store); }
 
   ngOnInit() {
     this.newSubcription = this.store

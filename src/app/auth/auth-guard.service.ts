@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, CanLoad } from '@angular/router';
 import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService implements CanActivate, CanLoad {
 
   constructor(
     private authService: AuthService,
@@ -14,11 +14,11 @@ export class AuthGuardService implements CanActivate {
   ) { }
 
   canActivate() {
+    return this.authService.isAuth();
+  }
+
+  canLoad() {
     return this.authService.isAuth()
-      .pipe(tap(isAuth => {
-        if (!isAuth) {
-          this.router.navigate(['/login']);
-        }
-      }));
+      .pipe(take(1));
   }
 }

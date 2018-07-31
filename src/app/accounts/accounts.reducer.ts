@@ -1,8 +1,13 @@
 import * as accountActions from './accounts.actions';
 import { Account } from './account.model';
+import { AppState } from '../app.reducer';
 
 export interface AccountState {
     items: Account[];
+}
+
+export interface AppState extends AppState {
+    account: AccountState;
 }
 
 const initialState: AccountState = {

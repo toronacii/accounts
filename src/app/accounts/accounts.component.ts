@@ -9,6 +9,8 @@ import { AppState } from '../app.reducer';
 import { EnableLoadingAction } from '../shared/ui.actions';
 import { BaseComponent } from '../shared/base-component';
 
+import * as fromAccount from './accounts.reducer';
+
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
@@ -21,7 +23,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
 
   constructor(
     private accountsService: AccountsService,
-    store: Store<AppState>) { super(store); }
+    store: Store<fromAccount.AppState>) { super(store); }
 
   ngOnInit() {
     this.subscribeLoading();
